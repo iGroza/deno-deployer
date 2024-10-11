@@ -1,0 +1,48 @@
+{
+  "name": "deno-deployer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./src/styles/tailwind.css -o ./public/dist/output.css --watch",
+    "build:js": "node esbuild.config.js --watch",
+    "deno:types": "deno types > ./deno_types/lib.deno.d.ts ",
+    "prepare": "mkdir -p logs codes configs deno_types && npm run deno:types",
+    "start": "npm run prepare && concurrently \"npm run build:css\" \"npm run build:js\" \"node server/index.js\"",
+    "docker:build": "docker build -t deno-deployer .",
+    "docker:run": "docker run -p 8000:8000 deno-deployer"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@headlessui/react": "^2.1.10",
+    "@heroicons/react": "^2.1.5",
+    "@monaco-editor/react": "^4.6.0",
+    "autoprefixer": "^10.4.20",
+    "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "concurrently": "^9.0.1",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "esbuild": "^0.24.0",
+    "esbuild-runner": "^2.2.2",
+    "express": "^4.21.1",
+    "fs-extra": "^11.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "monaco-editor": "^0.52.0",
+    "pidusage": "^3.0.2",
+    "postcss": "^8.4.47",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "tailwindcss": "^3.4.13",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "esbuild-plugin-alias": "^0.2.1",
+    "monaco-languageclient": "^8.8.3"
+  }
+}
